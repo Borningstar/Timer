@@ -1,0 +1,22 @@
+#!/usr/local/bin node
+
+var app = require('./../app');
+var port = process.env.PORT || 3000;
+
+var server = app.listen(port, function(){
+  console.log('Listening on port ' + port);
+});
+
+var io = require('socket.io')(server);
+
+var socket = io.listen(server);
+
+io.on('connection', function (socket) {
+  socket.emit('news', function(){
+  	return { hello: 'world' };
+  });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
+

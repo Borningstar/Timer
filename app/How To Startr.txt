@@ -1,0 +1,7 @@
+Start Testing:
+
+npm test
+
+Start server:
+
+node ./bin/www

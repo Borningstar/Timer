@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Express Test</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+      <div class="" style="margin-top: 10%">
+        <h4>Stamps!</h4>
+          <table class="u-full-width">
+            <thead>
+              <th>Time</th>
+              <th>Location</th>
+              <th>User</th>
+            </thead> 
+            <tbody id="stamps-list"> 
+              <!-- Filled with data -->
+            </tbody>
+          </table>
+      </div>
+    </div>
+     <div class="row">
+        <div id="timer"> 0 Hours, 0 Minutes, 0 Seconds </div>
+        <hr>
+        <input id="stamp-button" class="button-primary" type="submit" value="Stamp">
+      </div>
+  </div>
+
+
+
+<!-- JavaScript
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<script src="js/jquery.js"></script>
+<script src="js/socket.io/socket.io.js"></script>
+<script src="js/client.js"></script>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "Express-Test",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha test.js -w"
+  },
+  "dependencies": {
+    "body-parser": "^1.10.0",
+    "express": "^4.10.6",
+    "mongoose": "^3.8.20",
+    "react": "^0.12.2",
+    "socket.io": "^1.3.2"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "mocha": "^2.0.1",
+    "supertest": "^0.15.0",
+    "grunt-browserify": "^3.2.1"
+  }
+}
