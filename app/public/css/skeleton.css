@@ -22,6 +22,7 @@
 - Spacing
 - Utilities
 - Clearing
+- Map Pings
 - Media Queries
 */
 
@@ -391,6 +392,44 @@ hr {
   content: "";
   display: table;
   clear: both; }
+
+/* Map Pings - http://codepen.io/pietvanzoen/pen/dFaDy
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.ping1,
+.ping2,
+.ping3{position:absolute;z-index:88;left:50%;top:50%;display:block;content:"";-webkit-border-radius:116px;-moz-border-radius:116px;border-radius:116px;border:2px solid #ee4633;
+    transition:all 0.2s ease-in-out;
+-webkit-transition:all 0.2s ease-in-out;
+   -moz-transition:all 0.2s ease-in-out;
+   -o-transition:all 0.2s ease-in-out;
+  width:0;
+  height:0;
+  margin-left:-2px;
+  margin-top:-2px;}
+
+.dot:hover .ping1,
+.dot:hover .ping2,
+.dot:hover .ping3 {
+      transition:all 0.75s ease-out;
+  -webkit-transition:all 0.75s ease-out;
+     -moz-transition:all 0.75s ease-out;
+     -o-transition:all 0.75s ease-out;
+}
+.dot:hover .ping1 { width:116px;height:116px; margin-left:-60px;margin-top:-60px; }
+.dot:hover .ping2{width:66px;height:66px;margin-left:-35px;margin-top:-35px; 
+     -moz-transition-delay:0.2s;
+  -webkit-transition-delay:0.2s;
+       -o-transition-delay:0.2s;
+      transition-delay:0.2s;}
+.dot:hover .ping3{width:40px;height:40px;margin-left:-22px;margin-top:-22px;
+     -moz-transition-delay:0.5s;
+  -webkit-transition-delay:0.5s;
+       -o-transition-delay:0.5s;
+      transition-delay:0.5s;}
+
+
+.dot{position:absolute;z-index:99;width:7px;height:7px;background:#ee4633;-webkit-border-radius:12px;-moz-border-radius:12px;border-radius:12px;cursor:pointer;}
 
 
 /* Media Queries

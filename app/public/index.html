@@ -34,7 +34,11 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="" style="margin-top: 10%">
+
+      <div id="map" style="height: 50%; position:relative">
+        <img src="map.jpg" style="width: 100%;">
+      </div>
+      <div>
         <h4>Stamps!</h4>
           <table class="u-full-width">
             <thead>
@@ -49,19 +53,17 @@
       </div>
     </div>
      <div class="row">
-        <div id="timer"> 0 Hours, 0 Minutes, 0 Seconds </div>
+        <div id="timer"> 0 Hours, 0 Minutes, 0 Seconds since the last stamp. </div>
         <hr>
         <input id="stamp-button" class="button-primary" type="submit" value="Stamp">
       </div>
   </div>
 
-
-
 <!-- JavaScript
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   
 <script src="js/jquery.js"></script>
-<script src="js/socket.io/socket.io.js"></script>
+<script src="/socket.io/socket.io.js"></script>
 <script src="js/client.js"></script>
 
 <!-- End Document

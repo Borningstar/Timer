@@ -39,11 +39,22 @@ function msToTime(s) {
 }
 
 $("#stamp-button").click(function(){
-	socket.emit('stamp', { time: new Date() });
+	var ip;
+	$.get("http://ip-api.com/json/", function(response) {
+    	add = response.city + ", " + response.region + ", " + response.countryCode;
+    	lat = response.lat;
+    	lon = response.lon;
+
+    	socket.emit('stamp', { time: new Date(), address: add, latitude: lat, longitude: lon });
+	}, "jsonp");
+	
 });
 
 socket.on('stamps', function (data) {
 	latestStamp = new Date(data[0].date);
+	var bottom = ((parseFloat(data[0].latitude) + 90) / 180 * 100) - 0.5;
+	var left = ((parseFloat(data[0].longitude) + 180) / 360 * 100) - 0.5;
+	$("#map").html($("#map").html() + "<div style='bottom: " + bottom + "%; left: " + left + "%;' class='dot'><span class='ping1'></span><span class='ping2'></span><span class='ping3'></span></div>");
   	var list = "";
 		for(var i in data){
 			list = "<tr>" +
