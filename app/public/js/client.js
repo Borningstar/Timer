@@ -5,7 +5,11 @@ function getStamps(){
 	$.get("/stamps", function(data){
 		latestStamp = new Date(data[0].date);
 		var list = "";
+		var pings = "";
 		for(var i in data){
+			var bottom = ((parseFloat(data[i].latitude) + 90) / 180 * 100) - 0.5;
+			var left = ((parseFloat(data[i].longitude) + 180) / 360 * 100) - 0.5;
+			pings += "<div style='bottom: " + bottom + "%; left: " + left + "%;' class='dot'><span class='ping1'></span><span class='ping2'></span><span class='ping3'></span></div>";
 			list = "<tr>" +
 						"<td>" + new Date(data[i].date) + "</td>" +
 						"<td>" + data[i].location + "</td>" +
@@ -13,6 +17,8 @@ function getStamps(){
 					"</tr>"
 					 + list;
 		}
+	var map = "<img src='map.jpg' style='width: 100%;'>";
+	$("#map").html(map + pings);
 		$("#stamps-list").html(list);
 	});
 }
@@ -41,7 +47,13 @@ function msToTime(s) {
 $("#stamp-button").click(function(){
 	var ip;
 	$.get("http://ip-api.com/json/", function(response) {
-    	add = response.city + ", " + response.region + ", " + response.countryCode;
+    	add = response.city;
+    	if (response.region != ""){
+    		add += ", " + response.region;
+    	}
+    	if (response.country != ""){
+    		add += ", " + response.country;
+    	}
     	lat = response.lat;
     	lon = response.lon;
 
@@ -52,11 +64,13 @@ $("#stamp-button").click(function(){
 
 socket.on('stamps', function (data) {
 	latestStamp = new Date(data[0].date);
-	var bottom = ((parseFloat(data[0].latitude) + 90) / 180 * 100) - 0.5;
-	var left = ((parseFloat(data[0].longitude) + 180) / 360 * 100) - 0.5;
-	$("#map").html($("#map").html() + "<div style='bottom: " + bottom + "%; left: " + left + "%;' class='dot'><span class='ping1'></span><span class='ping2'></span><span class='ping3'></span></div>");
+	
   	var list = "";
+  	var pings = "";
 		for(var i in data){
+			var bottom = ((parseFloat(data[i].latitude) + 90) / 180 * 100) - 0.5;
+			var left = ((parseFloat(data[i].longitude) + 180) / 360 * 100) - 0.5;
+			pings += "<div style='bottom: " + bottom + "%; left: " + left + "%;' class='dot'><span class='ping1'></span><span class='ping2'></span><span class='ping3'></span></div>";
 			list = "<tr>" +
 						"<td>" + new Date(data[i].date) + "</td>" +
 						"<td>" + data[i].location + "</td>" +
@@ -64,6 +78,9 @@ socket.on('stamps', function (data) {
 					"</tr>"
 					 + list;
 		}
+	var map = "<img src='map.jpg' style='width: 100%;'>";
+	$("#map").html(map + pings);
+	
 	$("#stamps-list").html(list);
 });
 
