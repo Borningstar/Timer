@@ -429,8 +429,69 @@ hr {
       transition-delay:0.5s;}
 
 
-.dot{position:absolute;z-index:99;width:7px;height:7px;background:#ee4633;-webkit-border-radius:12px;-moz-border-radius:12px;border-radius:12px;cursor:pointer;}
+.dot{
 
+  -moz-animation-name: ping;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-timing-function: ease-in;
+    -moz-animation-duration: 1s;
+
+    -webkit-animation-name: ping;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease-in;
+    -webkit-animation-duration: 1s;
+
+    animation-name: ping;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 1s;
+    
+          position:absolute;
+          z-index:99;
+          width:7px;
+          height:7px;
+          background:#ee4633;
+          -webkit-border-radius: 12px;
+          -moz-border-radius: 12px;
+          border-radius:12px;
+          cursor:pointer;}
+
+
+@keyframes ping{
+    0% {
+      -webkit-transform: scale(1);
+         -moz-transform: scale(1);
+              transform: scale(1);
+        }
+    50% {
+      -webkit-transform: scale(4);
+         -moz-transform: scale(4);
+              transform: scale(4);
+        }
+    100% {
+      -webkit-transform: scale(1);
+         -moz-transform: scale(1);
+              transform: scale(1);
+        }
+}
+
+@-webkit-keyframes ping{
+    0% {
+      -webkit-transform: scale(1);
+         -moz-transform: scale(1);
+              transform: scale(1);
+        }
+    50% {
+      -webkit-transform: scale(4);
+         -moz-transform: scale(4);
+              transform: scale(4);
+        }
+    100% {
+      -webkit-transform: scale(1);
+         -moz-transform: scale(1);
+              transform: scale(1);
+        }
+}
 
 /* Media Queries
 –––––––––––––––––––––––––––––––––––––––––––––––––– */

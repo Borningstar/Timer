@@ -7,9 +7,6 @@ function getStamps(){
 		var list = "";
 		var pings = "";
 		for(var i in data){
-			var bottom = ((parseFloat(data[i].latitude) + 90) / 180 * 100) - 0.5;
-			var left = ((parseFloat(data[i].longitude) + 180) / 360 * 100) - 0.5;
-			pings += "<div style='bottom: " + bottom + "%; left: " + left + "%;' class='dot'><span class='ping1'></span><span class='ping2'></span><span class='ping3'></span></div>";
 			list = "<tr>" +
 						"<td>" + new Date(data[i].date) + "</td>" +
 						"<td>" + data[i].location + "</td>" +
@@ -17,9 +14,7 @@ function getStamps(){
 					"</tr>"
 					 + list;
 		}
-	var map = "<img src='map.jpg' style='width: 100%;'>";
-	$("#map").html(map + pings);
-		$("#stamps-list").html(list);
+	$("#stamps-list").html(list);
 	});
 }
 
@@ -64,22 +59,26 @@ $("#stamp-button").click(function(){
 
 socket.on('stamps', function (data) {
 	latestStamp = new Date(data[0].date);
-	
   	var list = "";
   	var pings = "";
+  	var x = data.length - 1;
 		for(var i in data){
-			var bottom = ((parseFloat(data[i].latitude) + 90) / 180 * 100) - 0.5;
-			var left = ((parseFloat(data[i].longitude) + 180) / 360 * 100) - 0.5;
-			pings += "<div style='bottom: " + bottom + "%; left: " + left + "%;' class='dot'><span class='ping1'></span><span class='ping2'></span><span class='ping3'></span></div>";
 			list = "<tr>" +
-						"<td>" + new Date(data[i].date) + "</td>" +
-						"<td>" + data[i].location + "</td>" +
-						"<td>" + data[i].user + "</td>" +
+						"<td>" + new Date(data[x].date) + "</td>" +
+						"<td>" + data[x].location + "</td>" +
+						"<td>" + data[x].user + "</td>" +
 					"</tr>"
 					 + list;
+			x -= 1;
 		}
+	var bottom = ((parseFloat(data[0].latitude) + 90) / 180 * 100) - 0.5;
+	var left = ((parseFloat(data[0].longitude) + 180) / 360 * 100) - 0.5;
+	pings += "<div style='bottom: " + bottom + "%; left: " + left + "%;' class='dot'><span class='ping1'></span><span class='ping2'></span><span class='ping3'></span></div>";
 	var map = "<img src='map.jpg' style='width: 100%;'>";
 	$("#map").html(map + pings);
+	setTimeout(function(){
+		$(".dot").remove();
+	}, 1000)
 	
 	$("#stamps-list").html(list);
 });
