@@ -15,6 +15,10 @@ module.exports = function(app, io){
 	    stamp.location = data['address'];
 	    stamp.longitude = data['longitude'];
 	    stamp.latitude = data['latitude'];
+	    if (data['name'] != ''){
+	    	stamp.user = data['name'];
+	    }
+	    stamp.message = data['message']
 
     	stamp.save(function(){
 			models.Stamp

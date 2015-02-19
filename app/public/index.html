@@ -35,8 +35,14 @@
   <div class="container">
     <div class="row">
       <h4>Stamps!</h4>
-      <div id="map" style="height: 50%; position:relative">
+      <div class="u-full-width" id="map" style="height: 50%; position:relative">
         <img src="map.jpg" style="width: 100%;">
+      </div>
+      <div class="row">
+        <label for="name" class="two columns">Enter a name: </label><input class="two columns" id="name" type="text" placeholder="Anonymous"></input>
+        <label for="message" class="two columns">Enter a message: </label><input class="six columns" input id="message" type="text" placeholder="Gone done finished"></input>
+        
+        
       </div>
       <div class="row">
         <input id="stamp-button" class="button-primary" type="submit" value="Stamp">
@@ -47,7 +53,8 @@
             <thead>
               <th>Time</th>
               <th>Location</th>
-              <th>User</th>
+              <th>Name</th>
+              <th>Message</th>
             </thead> 
             <tbody id="stamps-list"> 
               <!-- Filled with data -->

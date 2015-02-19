@@ -6,13 +6,16 @@ function getStamps(){
 		latestStamp = new Date(data[0].date);
 		var list = "";
 		var pings = "";
+		var x = data.length - 1;
 		for(var i in data){
 			list = "<tr>" +
-						"<td>" + new Date(data[i].date) + "</td>" +
-						"<td>" + data[i].location + "</td>" +
-						"<td>" + data[i].user + "</td>" +
+						"<td>" + new Date(data[x].date).toLocaleTimeString() + "</td>" +
+						"<td>" + data[x].location + "</td>" +
+						"<td>" + data[x].user + "</td>" +
+						"<td>" + data[x].message + "</td>" +
 					"</tr>"
 					 + list;
+			x -= 1;	
 		}
 	$("#stamps-list").html(list);
 	});
@@ -52,7 +55,10 @@ $("#stamp-button").click(function(){
     	lat = response.lat;
     	lon = response.lon;
 
-    	socket.emit('stamp', { time: new Date(), address: add, latitude: lat, longitude: lon });
+    	socket.emit('stamp', { time: new Date(), address: add, latitude: lat, longitude: lon, name: $('#name').val(), message: $('#message').val() });
+
+    	$('#message').val('');
+
 	}, "jsonp");
 	
 });
@@ -61,15 +67,14 @@ socket.on('stamps', function (data) {
 	latestStamp = new Date(data[0].date);
   	var list = "";
   	var pings = "";
-  	var x = data.length - 1;
 		for(var i in data){
 			list = "<tr>" +
-						"<td>" + new Date(data[x].date) + "</td>" +
-						"<td>" + data[x].location + "</td>" +
-						"<td>" + data[x].user + "</td>" +
+						"<td>" + new Date(data[x].date).toLocaleTimeString() + "</td>" +
+						"<td>" + data[i].location + "</td>" +
+						"<td>" + data[i].user + "</td>" +
+						"<td>" + data[i].message + "</td>" +
 					"</tr>"
 					 + list;
-			x -= 1;
 		}
 	var bottom = ((parseFloat(data[0].latitude) + 90) / 180 * 100) - 0.5;
 	var left = ((parseFloat(data[0].longitude) + 180) / 360 * 100) - 0.5;
