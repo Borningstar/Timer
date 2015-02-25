@@ -21,13 +21,15 @@ module.exports = function(app, io){
 	    stamp.message = data['message']
 
     	stamp.save(function(){
-			models.Stamp
-				.find()
-				.sort({'date': -1})
-				.limit(5)
-				.exec(function (err, stamps){
-					io.emit('stamps', stamps);
-				});
+    		var count = models.Stamp.count({}, function(err, count){
+				models.Stamp
+					.find()
+					.sort({'date': 1})
+					.skip(count - 5)
+					.exec(function (err, stamps){
+						io.emit('stamps', stamps);
+					});
+    		});
 		});
 
 	  });

@@ -69,7 +69,7 @@ socket.on('stamps', function (data) {
   	var pings = "";
 		for(var i in data){
 			list = "<tr>" +
-						"<td>" + new Date(data[x].date).toLocaleTimeString() + "</td>" +
+						"<td>" + new Date(data[i].date).toLocaleTimeString() + "</td>" +
 						"<td>" + data[i].location + "</td>" +
 						"<td>" + data[i].user + "</td>" +
 						"<td>" + data[i].message + "</td>" +
