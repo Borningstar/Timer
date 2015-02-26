@@ -1,3 +1,4 @@
+var $ = require('./jquery');
 var socket = io.connect();
 var latestStamp;
 
@@ -64,7 +65,7 @@ $("#stamp-button").click(function(){
 });
 
 socket.on('stamps', function (data) {
-	latestStamp = new Date(data[0].date);
+	latestStamp = new Date(data[data.length - 1].date);
   	var list = "";
   	var pings = "";
 		for(var i in data){
