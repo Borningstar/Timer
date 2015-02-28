@@ -10,8 +10,20 @@ var stampArray = (function () {
 		array = data;
 	};
 
-	var getArray = function (){
-		return array;
+	var getArray = function (amount){
+		var trimmedArray = [];
+
+		if (!amount){
+			amount = array.length;
+		} else if (amount > array.length){
+			amount = array.length;
+		}
+
+		for (var i = 0; i < amount; i++){
+			trimmedArray[trimmedArray.length] = array[i];
+		};
+
+		return trimmedArray;
 	};
 
 	return {
@@ -20,15 +32,36 @@ var stampArray = (function () {
 	};
 }());
 
+var stampState = (function () {
+	var stamps;
+
+	var update = function (){
+		stamps = stampArray.get(5);
+	};
+
+	var populate = function (){
+		for(var i in stamps){
+			list = "<tr>" +
+						"<td>" + new Date(data[i].date).toLocaleTimeString() + "</td>" +
+						"<td>" + data[i].location + "</td>" +
+						"<td>" + data[i].user + "</td>" +
+						"<td>" + data[i].message + "</td>" +
+					"</tr>"
+					 + list;
+		}
+		$("#stamps-list").html(list);
+	};
+
+
+
+}());
+
 socket.on('stampSet', function (data) {
 	stampArray.set(data);
 	console.log(stampArray.get());
 });
 
-var stampState = (function () {
-	var stamps = 1;
 
-}());
 
 function getStamps(){
 	$.get("/stamps", function(data){
