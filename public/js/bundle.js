@@ -3,12 +3,33 @@ var $ = require('./jquery');
 var timer = require('./timer');
 var socket = io.connect();
 var latestStamp;
-var stampArray;
+
+var stampArray = (function () {
+	var array;
+
+	var setArray = function (data){
+		array = data;
+	};
+
+	var getArray = function (){
+		return array;
+	};
+
+	return {
+		set: setArray,
+		get: getArray
+	};
+}());
 
 socket.on('stampSet', function (data) {
-	stampArray = data;
-	console.log(data);
+	stampArray.set(data);
+	console.log(stampArray.get());
 });
+
+var stampState = (function () {
+	var stamps = 1;
+
+}());
 
 function getStamps(){
 	$.get("/stamps", function(data){
