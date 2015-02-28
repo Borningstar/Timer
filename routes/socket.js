@@ -6,7 +6,17 @@ module.exports = function(app, io){
 
 	io.on('connection', function (socket) {
 
-	  socket.on('stamp', function (data) {
+		var count = models.Stamp.count({}, function(err, count){
+			models.Stamp
+				.find()
+				.sort({'date': 1})
+				.skip(function(){if (count - 100 < 1) {return count} else { return count - 100}})
+				.exec(function (err, stamps){
+					io.emit('stampSet', stamps);
+				});
+		});
+
+	  	socket.on('stamp', function (data) {
 
 	    console.log(data.time + ", " + data['address']);
 

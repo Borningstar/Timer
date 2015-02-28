@@ -1,7 +1,14 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"./src/index.js":[function(require,module,exports){
 var $ = require('./jquery');
+var timer = require('./timer');
 var socket = io.connect();
 var latestStamp;
+var stampArray;
+
+socket.on('stampSet', function (data) {
+	stampArray = data;
+	console.log(data);
+});
 
 function getStamps(){
 	$.get("/stamps", function(data){
@@ -25,24 +32,7 @@ function getStamps(){
 
 getStamps();
 
-var myVar = setInterval(function () {timer()}, 1000);
-
-function timer(){{
-	var date = new Date();
-	var time = msToTime(Math.abs(date - latestStamp));
-	document.getElementById("timer").innerHTML = time;
-}}
-
-function msToTime(s) {
-  var ms = s % 1000;
-  s = (s - ms) / 1000;
-  var secs = s % 60;
-  s = (s - secs) / 60;
-  var mins = s % 60;
-  var hrs = (s - mins) / 60;
-
-  return hrs + ' Hours, ' + mins + ' Minutes, ' + secs + ' Seconds since the last stamp.';
-}
+var stampTimer = setInterval(function () {timer(latestStamp, "timer")}, 1000);
 
 $("#stamp-button").click(function(){
 	var ip;
@@ -91,7 +81,7 @@ socket.on('stamps', function (data) {
 });
 
 
-},{"./jquery":"/home/vagrant/app/src/jquery.js"}],"/home/vagrant/app/src/jquery.js":[function(require,module,exports){
+},{"./jquery":"/home/vagrant/app/src/jquery.js","./timer":"/home/vagrant/app/src/timer.js"}],"/home/vagrant/app/src/jquery.js":[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.1
  * http://jquery.com/
@@ -9283,6 +9273,26 @@ return jQuery;
 
 }));
 
-},{}]},{},["./src/index.js"]);
+},{}],"/home/vagrant/app/src/msToTime.js":[function(require,module,exports){
+module.exports = function msToTime(s) {
+	var ms = s % 1000;
+	s = (s - ms) / 1000;
+	var secs = s % 60;
+	s = (s - secs) / 60;
+	var mins = s % 60;
+	var hrs = (s - mins) / 60;
+
+	return hrs + ' Hours, ' + mins + ' Minutes, ' + secs + ' Seconds since the last stamp.';
+}
+
+},{}],"/home/vagrant/app/src/timer.js":[function(require,module,exports){
+var msToTime = require ('./msToTime');
+
+module.exports = function timer(time, element){
+  var date = new Date();
+  var time = msToTime(Math.abs(date - time));
+  document.getElementById(element).innerHTML = time;
+}
+},{"./msToTime":"/home/vagrant/app/src/msToTime.js"}]},{},["./src/index.js"]);
 
 //# sourceMappingURL=bundle.js.map

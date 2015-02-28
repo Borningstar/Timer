@@ -1,0 +1,10 @@
+module.exports = function msToTime(s) {
+	var ms = s % 1000;
+	s = (s - ms) / 1000;
+	var secs = s % 60;
+	s = (s - secs) / 60;
+	var mins = s % 60;
+	var hrs = (s - mins) / 60;
+
+	return hrs + ' Hours, ' + mins + ' Minutes, ' + secs + ' Seconds since the last stamp.';
+}

@@ -1,6 +1,12 @@
 var $ = require('./jquery');
+var timer = require('./timer');
 var socket = io.connect();
 var latestStamp;
+var stampArray;
+
+socket.on('stampSet', function (data) {
+	stampArray = data;
+});
 
 function getStamps(){
 	$.get("/stamps", function(data){
@@ -24,24 +30,7 @@ function getStamps(){
 
 getStamps();
 
-var myVar = setInterval(function () {timer()}, 1000);
-
-function timer(){{
-	var date = new Date();
-	var time = msToTime(Math.abs(date - latestStamp));
-	document.getElementById("timer").innerHTML = time;
-}}
-
-function msToTime(s) {
-  var ms = s % 1000;
-  s = (s - ms) / 1000;
-  var secs = s % 60;
-  s = (s - secs) / 60;
-  var mins = s % 60;
-  var hrs = (s - mins) / 60;
-
-  return hrs + ' Hours, ' + mins + ' Minutes, ' + secs + ' Seconds since the last stamp.';
-}
+var stampTimer = setInterval(function () {timer(latestStamp, "timer")}, 1000);
 
 $("#stamp-button").click(function(){
 	var ip;
