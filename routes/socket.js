@@ -9,8 +9,8 @@ module.exports = function(app, io){
 		var count = models.Stamp.count({}, function(err, count){
 			models.Stamp
 				.find()
-				.sort({'date': 1})
-				.skip(function(){if (count - 100 < 1) {return count} else { return count - 100}})
+				.sort({'date': -1})
+				.limit(100)
 				.exec(function (err, stamps){
 					io.emit('stampSet', stamps);
 				});
@@ -32,14 +32,6 @@ module.exports = function(app, io){
 
     	stamp.save(function(){
     		var count = models.Stamp.count({}, function(err, count){
-				models.Stamp
-					.find()
-					.sort({'date': 1})
-					.skip(count - 5)
-					.exec(function (err, stamps){
-						io.emit('stamps', stamps);
-					});
-
 				models.Stamp.findOne({}, {}, {sort: {'date': -1}}, function (err, stamp){
 						io.emit('newStamp', stamp);
 					});
