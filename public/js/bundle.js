@@ -9301,13 +9301,13 @@ var timer = require('./timer');
 var stampControl = (function () {
 
 	var stamps;
-	var stampTimer = setInterval(function () {timer(new Date(stamps[0].date), "timer")}, 1000);
+	var stampTimer = setInterval(function () {timer(new Date(stamps[4].date), "timer")}, 1000);
 
 	var setStamps = function (newStamps){
 		stamps = newStamps;
 	};
 
-	var popStamp = function (){
+	var populateStamps = function (){
 		var list = "";
 
 		for(var i in stamps){
@@ -9339,7 +9339,7 @@ var stampControl = (function () {
 
 	return {
 		set: setStamps,
-		populate: popStamp,
+		populate: populateStamps,
 		ping: pingMap
 	};
 }());
@@ -9350,9 +9350,9 @@ module.exports = stampControl;
 },{"./timer":"/home/vagrant/app/src/timer.js","jquery":"/home/vagrant/app/node_modules/jquery/dist/jquery.js"}],"/home/vagrant/app/src/timer.js":[function(require,module,exports){
 var msToTime = require ('./msToTime');
 
-module.exports = function timer(time, element){
-  var date = new Date();
-  var time = msToTime(Math.abs(date - time));
+module.exports = function timer(oldTime, element){
+  var currentTime = new Date();
+  var time = msToTime(Math.abs(currentTime - oldTime));
   document.getElementById(element).innerHTML = time;
 }
 },{"./msToTime":"/home/vagrant/app/src/msToTime.js"}]},{},["./src/index.js"]);

@@ -4,7 +4,7 @@ var timer = require('./timer');
 var stampControl = (function () {
 
 	var stamps;
-	var stampTimer = setInterval(function () {timer(new Date(stamps[0].date), "timer")}, 1000);
+	var stampTimer = setInterval(function () {timer(new Date(stamps[4].date), "timer")}, 1000);
 
 	var setStamps = function (newStamps){
 		stamps = newStamps;
