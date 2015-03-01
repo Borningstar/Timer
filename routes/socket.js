@@ -39,6 +39,10 @@ module.exports = function(app, io){
 					.exec(function (err, stamps){
 						io.emit('stamps', stamps);
 					});
+
+				models.Stamp.findOne({}, {}, {sort: {'date': -1}}, function (err, stamp){
+						io.emit('newStamp', stamp);
+					});
     		});
 		});
 
