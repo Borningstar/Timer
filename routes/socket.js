@@ -18,22 +18,22 @@ module.exports = function(app, io){
 
 	  	socket.on('stamp', function (data) {
 
-	    console.log(data.time + ", " + data['address']);
+	    console.log(data.date + ", " + data['locaton']);
 
 	    var stamp = new models.Stamp();
 
-	    stamp.location = data['address'];
+	    stamp.location = data['location'];
 	    stamp.longitude = data['longitude'];
 	    stamp.latitude = data['latitude'];
-	    if (data['name'] != ''){
-	    	stamp.user = data['name'];
+	    if (data['user'] != ''){
+	    	stamp.user = data['user'];
 	    }
 	    stamp.message = data['message']
 
     	stamp.save(function(){
     		var count = models.Stamp.count({}, function(err, count){
 				models.Stamp.findOne({}, {}, {sort: {'date': -1}}, function (err, stamp){
-						io.emit('newStamp', stamp);
+						socket.broadcast.emit('newStamp', stamp);
 					});
     		});
 		});
