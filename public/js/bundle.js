@@ -10895,8 +10895,6 @@ var stampControl = (function () {
 	};
 }());
 
-var _ = require('underscore');
-
 var pingControl = (function () {
 
 	var pingArray = [];
@@ -10922,29 +10920,12 @@ var pingControl = (function () {
 
 		var time = Date.parse(new Date());
 
-	//	console.log(time);
-
 		for (var i = 0; i < pingArray.length; i++){
-			console.log(pingArray[i] - time);
 			if (time - pingArray[i] > 2000){
-				console.log('removing ' + pingArray[i]);
-				console.log(pingArray[i] - time);
 				$('#' + pingArray[i]).remove();
 				pingArray.splice(i, 1);
 			}
 		}
-/*
-		_.each(pingArray, function(element){
-			console.log(time);
-			console.log(element);
-			console.log(element - time);
-			if (element - time > 2000){
-				console.log(element - time);
-				$('#element').remove();
-				pingArray.splice(index, 1);
-			}
-		});
-*/
 	}
 
 	return {
@@ -10956,7 +10937,7 @@ var pingControl = (function () {
 module.exports = stampControl;
 
 
-},{"./timer":"/home/vagrant/app/src/timer.js","jquery":"/home/vagrant/app/node_modules/jquery/dist/jquery.js","underscore":"/home/vagrant/app/node_modules/underscore/underscore.js"}],"/home/vagrant/app/src/timer.js":[function(require,module,exports){
+},{"./timer":"/home/vagrant/app/src/timer.js","jquery":"/home/vagrant/app/node_modules/jquery/dist/jquery.js"}],"/home/vagrant/app/src/timer.js":[function(require,module,exports){
 var msToTime = require ('./msToTime');
 
 module.exports = function timer(oldTime, element){

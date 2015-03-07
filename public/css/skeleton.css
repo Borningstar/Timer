@@ -401,66 +401,67 @@ hr {
 .dot{
 
   -moz-animation-name: ping;
-  -moz-animation-iteration-count: 1;
-  -moz-animation-timing-function: ease-in;
-  -moz-animation-duration: 2s;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-timing-function: ease-in;
+    -moz-animation-duration: 2s;
+    -moz-animation-fill-mode: forwards;
 
-  -webkit-animation-name: ping;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-timing-function: ease-in;
-  -webkit-animation-duration: 2s;
+    -webkit-animation-name: ping;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease-in;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-fill-mode: forwards;
 
-  animation-name: ping;
-  animation-iteration-count: 1;
-  animation-timing-function: ease-in;
-  animation-duration: 2s;
-  
-  position:absolute;
-  z-index:99;
-  width:1px;
-  height:1px;
-  background:#ee4633;
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  border-radius:12px;
-  cursor:pointer;
-  }
+    animation-name: ping;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 2s;
+    
+          position:absolute;
+          z-index:99;
+          width:7px;
+          height:7px;
+          background:#ee4633;
+          -webkit-border-radius: 12px;
+          -moz-border-radius: 12px;
+          border-radius:12px;
+          cursor:pointer;}
 
 
 @keyframes ping{
-  0% {
-    -webkit-transform: scale(0);
-       -moz-transform: scale(0);
-            transform: scale(0);
-      }
-  50% {
-    -webkit-transform: scale(10);
-       -moz-transform: scale(10);
-            transform: scale(10);
-      }
-  100% {
-    -webkit-transform: scale(0);
-       -moz-transform: scale(0);
-            transform: scale(0);
-      }
+    0% {
+      -webkit-transform: scale(0);
+         -moz-transform: scale(0);
+              transform: scale(0);
+        }
+    50% {
+      -webkit-transform: scale(3);
+         -moz-transform: scale(3);
+              transform: scale(3);
+        }
+    100% {
+      -webkit-transform: scale(0);
+         -moz-transform: scale(0);
+              transform: scale(0);
+        }
 }
 
 @-webkit-keyframes ping{
-  0% {
-    -webkit-transform: scale(0);
-       -moz-transform: scale(0);
-            transform: scale(0);
-      }
-  50% {
-    -webkit-transform: scale(10);
-       -moz-transform: scale(10);
-            transform: scale(10);
-      }
-  100% {
-    -webkit-transform: scale(0);
-       -moz-transform: scale(0);
-            transform: scale(0);
-      }
+    0% {
+      -webkit-transform: scale(0);
+         -moz-transform: scale(0);
+              transform: scale(0);
+        }
+    50% {
+      -webkit-transform: scale(3);
+         -moz-transform: scale(3);
+              transform: scale(3);
+        }
+    100% {
+      -webkit-transform: scale(0);
+         -moz-transform: scale(0);
+              transform: scale(0);
+        }
 }
 
 /* Media Queries
