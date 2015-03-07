@@ -28,6 +28,7 @@ var stampArray = (function () {
 			array.pop();
 		}
 		array.unshift(stamp);
+		//If the order of the array is wrong after adding a new stamp, sort array
 		if(array[0].date < array[1].date){
 			array = _.sortBy(array, 'date');
 		}

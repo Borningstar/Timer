@@ -18,8 +18,6 @@ function addStamp(stamp){
     stampControl.set(stampArray.get(5).reverse());
     stampControl.populate();
     stampControl.ping();
-
-    console.log(stamp);
 }
 
 $("#stamp-button").click(function(){
@@ -45,8 +43,6 @@ $("#stamp-button").click(function(){
                         longitude: lon, 
                         user: name,
                         message: $('#message').val() };
-
-        console.log(newStamp);
 
         addStamp(newStamp);
 

@@ -19,8 +19,6 @@ function addStamp(stamp){
     stampControl.set(stampArray.get(5).reverse());
     stampControl.populate();
     stampControl.ping();
-
-    console.log(stamp);
 }
 
 $("#stamp-button").click(function(){
@@ -46,8 +44,6 @@ $("#stamp-button").click(function(){
                         longitude: lon, 
                         user: name,
                         message: $('#message').val() };
-
-        console.log(newStamp);
 
         addStamp(newStamp);
 
@@ -10887,21 +10883,10 @@ var stampControl = (function () {
 		}
 		$("#stamps-list").html(list);
 	};
-
-	var pingMap = function (){
-		var pings = "";
-		var bottom = ((parseFloat(stamps[0].latitude) + 90) / 180 * 100) - 0.5;
-		var left = ((parseFloat(stamps[0].longitude) + 180) / 360 * 100) - 0.5;
-
-		pings += "<div style='bottom: " + bottom + "%; left: " + left + "%;' class='dot'><span class='ping1'></span><span class='ping2'></span><span class='ping3'></span></div>";
-		var map = "<img src='map.jpg' style='width: 100%;'>";
-		
-		$("#map").html(map + pings);
-		
-		setTimeout(function(){
-			$(".dot").remove();
-		}, 1000)
-	};
+	
+	var pingMap = function(){
+		pingControl.ping(parseFloat(stamps[0].latitude), parseFloat(stamps[0].longitude));
+	}
 
 	return {
 		set: setStamps,
@@ -10910,10 +10895,68 @@ var stampControl = (function () {
 	};
 }());
 
+var _ = require('underscore');
+
+var pingControl = (function () {
+
+	var pingArray = [];
+
+	var cleanupTimer = setInterval(function(){pingCleanup();}, 2000);
+
+	var pingMap = function (latitude, longitude){
+		var pingID = Date.parse(new Date());
+		var bottom = ((latitude + 90) / 180 * 100) - 0.5;
+		var left = ((longitude + 180) / 360 * 100) - 0.5;	
+
+		ping = "<div style='bottom: " + bottom + "%; left: " + left + "%;' class='dot' id='" + pingID + "';></div>";
+		
+		$("#pings").append(ping);
+		if (pingArray){
+			pingArray.push(pingID);
+		} else {
+			pingArray = pingID;
+		}	
+	};
+
+	function pingCleanup(){
+
+		var time = Date.parse(new Date());
+
+	//	console.log(time);
+
+		for (var i = 0; i < pingArray.length; i++){
+			console.log(pingArray[i] - time);
+			if (time - pingArray[i] > 2000){
+				console.log('removing ' + pingArray[i]);
+				console.log(pingArray[i] - time);
+				$('#' + pingArray[i]).remove();
+				pingArray.splice(i, 1);
+			}
+		}
+/*
+		_.each(pingArray, function(element){
+			console.log(time);
+			console.log(element);
+			console.log(element - time);
+			if (element - time > 2000){
+				console.log(element - time);
+				$('#element').remove();
+				pingArray.splice(index, 1);
+			}
+		});
+*/
+	}
+
+	return {
+		ping: pingMap,
+	}
+
+}());
+
 module.exports = stampControl;
 
 
-},{"./timer":"/home/vagrant/app/src/timer.js","jquery":"/home/vagrant/app/node_modules/jquery/dist/jquery.js"}],"/home/vagrant/app/src/timer.js":[function(require,module,exports){
+},{"./timer":"/home/vagrant/app/src/timer.js","jquery":"/home/vagrant/app/node_modules/jquery/dist/jquery.js","underscore":"/home/vagrant/app/node_modules/underscore/underscore.js"}],"/home/vagrant/app/src/timer.js":[function(require,module,exports){
 var msToTime = require ('./msToTime');
 
 module.exports = function timer(oldTime, element){

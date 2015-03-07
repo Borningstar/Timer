@@ -24,27 +24,56 @@ var stampControl = (function () {
 		}
 		$("#stamps-list").html(list);
 	};
-
-	var pingMap = function (){
-		var pings = "";
-		var bottom = ((parseFloat(stamps[0].latitude) + 90) / 180 * 100) - 0.5;
-		var left = ((parseFloat(stamps[0].longitude) + 180) / 360 * 100) - 0.5;
-
-		pings += "<div style='bottom: " + bottom + "%; left: " + left + "%;' class='dot'><span class='ping1'></span><span class='ping2'></span><span class='ping3'></span></div>";
-		var map = "<img src='map.jpg' style='width: 100%;'>";
-		
-		$("#map").html(map + pings);
-		
-		setTimeout(function(){
-			$(".dot").remove();
-		}, 1000)
-	};
+	
+	var pingMap = function(){
+		pingControl.ping(parseFloat(stamps[0].latitude), parseFloat(stamps[0].longitude));
+	}
 
 	return {
 		set: setStamps,
 		populate: populateStamps,
 		ping: pingMap
 	};
+}());
+
+var pingControl = (function () {
+
+	var pingArray = [];
+
+	var cleanupTimer = setInterval(function(){pingCleanup();}, 2000);
+
+	var pingMap = function (latitude, longitude){
+		var pingID = Date.parse(new Date());
+		var bottom = ((latitude + 90) / 180 * 100) - 0.5;
+		var left = ((longitude + 180) / 360 * 100) - 0.5;	
+
+		ping = "<div style='bottom: " + bottom + "%; left: " + left + "%;' class='dot' id='" + pingID + "';></div>";
+		
+		$("#pings").append(ping);
+		if (pingArray){
+			pingArray.push(pingID);
+		} else {
+			pingArray = pingID;
+		}	
+	};
+
+	function pingCleanup(){
+
+		var time = Date.parse(new Date());
+
+		for (var i = 0; i < pingArray.length; i++){
+			console.log(pingArray[i] - time);
+			if (time - pingArray[i] > 2000){
+				$('#' + pingArray[i]).remove();
+				pingArray.splice(i, 1);
+			}
+		}
+	}
+
+	return {
+		ping: pingMap,
+	}
+
 }());
 
 module.exports = stampControl;
