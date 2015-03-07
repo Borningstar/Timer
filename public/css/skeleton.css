@@ -403,19 +403,19 @@ hr {
   -moz-animation-name: ping;
     -moz-animation-iteration-count: 1;
     -moz-animation-timing-function: ease-in;
-    -moz-animation-duration: 2s;
+    -moz-animation-duration: 4s;
     -moz-animation-fill-mode: forwards;
 
     -webkit-animation-name: ping;
     -webkit-animation-iteration-count: 1;
     -webkit-animation-timing-function: ease-in;
-    -webkit-animation-duration: 2s;
+    -webkit-animation-duration: 4s;
     -webkit-animation-fill-mode: forwards;
 
     animation-name: ping;
     animation-iteration-count: 1;
     animation-timing-function: ease-in;
-    animation-duration: 2s;
+    animation-duration: 4s;
     
           position:absolute;
           z-index:99;
@@ -434,15 +434,21 @@ hr {
          -moz-transform: scale(0);
               transform: scale(0);
         }
-    50% {
+    15% {
       -webkit-transform: scale(3);
          -moz-transform: scale(3);
               transform: scale(3);
         }
+    30% {
+      -webkit-transform: scale(1);
+         -moz-transform: scale(1);
+              transform: scale(1);
+        }
+    75% {
+      opacity: 0.7;
+      }
     100% {
-      -webkit-transform: scale(0);
-         -moz-transform: scale(0);
-              transform: scale(0);
+      opacity: 0;
         }
 }
 
@@ -452,15 +458,21 @@ hr {
          -moz-transform: scale(0);
               transform: scale(0);
         }
-    50% {
+    15% {
       -webkit-transform: scale(3);
          -moz-transform: scale(3);
               transform: scale(3);
         }
+    30% {
+      -webkit-transform: scale(1);
+         -moz-transform: scale(1);
+              transform: scale(1);
+        }
+    75% {
+      opacity: 0.7;
+      }
     100% {
-      -webkit-transform: scale(0);
-         -moz-transform: scale(0);
-              transform: scale(0);
+      opacity: 0;
         }
 }
 

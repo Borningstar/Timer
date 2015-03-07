@@ -62,7 +62,7 @@ var pingControl = (function () {
 		var time = Date.parse(new Date());
 
 		for (var i = 0; i < pingArray.length; i++){
-			if (time - pingArray[i] > 2000){
+			if (time - pingArray[i] > 5000){
 				$('#' + pingArray[i]).remove();
 				pingArray.splice(i, 1);
 			}
