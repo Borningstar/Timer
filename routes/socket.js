@@ -27,8 +27,10 @@ module.exports = function(app, io){
 	    stamp.latitude = data['latitude'];
 	    if (data['user'] != ''){
 	    	stamp.user = data['user'];
+	    	stamp.user = stamp.user.replace(/>|</g, '');
 	    }
 	    stamp.message = data['message']
+	    stamp.message = stamp.message.replace(/>|</g, '');
 
     	stamp.save(function(){
     		var count = models.Stamp.count({}, function(err, count){
