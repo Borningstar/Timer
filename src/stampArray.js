@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 var stampArray = (function () {
 	var array;
 
@@ -26,6 +28,9 @@ var stampArray = (function () {
 			array.pop();
 		}
 		array.unshift(stamp);
+		if(array[0].date < array[1].date){
+			array = _.sortBy(array, 'date');
+		}
 	};
 
 	return {

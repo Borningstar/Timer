@@ -18,7 +18,7 @@ module.exports = function(app, io){
 
 	  	socket.on('stamp', function (data) {
 
-	    console.log(data.date + ", " + data['locaton']);
+	    console.log(data.date + ", " + data['location']);
 
 	    var stamp = new models.Stamp();
 
