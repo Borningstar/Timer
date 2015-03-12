@@ -22,6 +22,7 @@ module.exports = function(app, io){
 
 	    var stamp = new models.Stamp();
 
+	    stamp.date = data['date'];
 	    stamp.location = data['location'];
 	    stamp.longitude = data['longitude'];
 	    stamp.latitude = data['latitude'];

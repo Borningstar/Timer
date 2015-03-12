@@ -3,8 +3,10 @@ var stampArray = require('./stampArray');
 var stampControl = require('./stampControl');
 var $ = require('jquery');
 var socket = io.connect();
+var locationAPI = require('./locationAPI');
 
 socket.on('stampSet', function (data) {
+    locationAPI.call();
 	stampArray.set(data);
 	stampControl.set(stampArray.get(5).reverse());
 	stampControl.populate();
@@ -22,39 +24,27 @@ function addStamp(stamp){
 }
 
 $("#stamp-button").click(function(){
-	$.get("http://ip-api.com/json/", function(response) {
-    	add = response.city;
-    	if (response.region != ""){
-    		add += ", " + response.region;
-    	}
-    	if (response.country != ""){
-    		add += ", " + response.country;
-    	}
-    	lat = response.lat;
-    	lon = response.lon;
 
-        name = $('#name').val();
-        if (name === ""){
-            name = "Anonymous";
-        }
+    var name = $('#name').val();
+    if (name === ""){
+        name = "Anonymous";
+    }
 
-        var newStamp = { date: new Date(), 
-                        location: add, 
-                        latitude: lat, 
-                        longitude: lon, 
-                        user: name,
-                        message: $('#message').val() };
+    var newStamp = { date: new Date(), 
+                    location: locationAPI.add(), 
+                    latitude: locationAPI.lat(), 
+                    longitude: locationAPI.lon(), 
+                    user: name,
+                    message: $('#message').val() };
 
-        addStamp(newStamp);
+    addStamp(newStamp);
 
-    	socket.emit('stamp', newStamp);
+    socket.emit('stamp', newStamp);
 
-    	$('#message').val('');
-
-	}, "jsonp");
+    $('#message').val('');
 });
 
-},{"./stampArray":"/home/vagrant/app/src/stampArray.js","./stampControl":"/home/vagrant/app/src/stampControl.js","jquery":"/home/vagrant/app/node_modules/jquery/dist/jquery.js"}],"/home/vagrant/app/node_modules/jquery/dist/jquery.js":[function(require,module,exports){
+},{"./locationAPI":"/home/vagrant/app/src/locationAPI.js","./stampArray":"/home/vagrant/app/src/stampArray.js","./stampControl":"/home/vagrant/app/src/stampControl.js","jquery":"/home/vagrant/app/node_modules/jquery/dist/jquery.js"}],"/home/vagrant/app/node_modules/jquery/dist/jquery.js":[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.3
  * http://jquery.com/
@@ -10799,7 +10789,53 @@ return jQuery;
   }
 }.call(this));
 
-},{}],"/home/vagrant/app/src/msToTime.js":[function(require,module,exports){
+},{}],"/home/vagrant/app/src/locationAPI.js":[function(require,module,exports){
+var $ = require('jquery');
+
+var locationAPI = (function () {
+
+    var address;
+    var latitude;
+    var longitude;
+
+    var makeCall = function(){
+        $.get("http://ip-api.com/json/", function(response) {
+            address = response.city;
+            if (response.region != ""){
+                address += ", " + response.region;
+            }
+            if (response.country != ""){
+                address += ", " + response.country;
+            }
+            latitude = response.lat;
+            longitude = response.lon;
+
+        }, "jsonp");
+    }
+
+    var getAddress = function(){
+        return address;
+    }
+
+    var getlatitude = function(){
+        return latitude;
+    }
+
+    var getlongitude = function(){
+        return longitude;
+    }
+
+    return {
+        add: getAddress,
+        lat: getlatitude,
+        lon: getlongitude,
+        call: makeCall
+    }
+
+}());
+
+module.exports = locationAPI;
+},{"jquery":"/home/vagrant/app/node_modules/jquery/dist/jquery.js"}],"/home/vagrant/app/src/msToTime.js":[function(require,module,exports){
 module.exports = function msToTime(s) {
 	var ms = s % 1000;
 	s = (s - ms) / 1000;
@@ -10842,6 +10878,7 @@ var stampArray = (function () {
 			array.pop();
 		}
 		array.unshift(stamp);
+		//If the order of the array is wrong after adding a new stamp, sort array
 		if(array[0].date < array[1].date){
 			array = _.sortBy(array, 'date');
 		}
