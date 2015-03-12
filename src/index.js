@@ -29,7 +29,7 @@ $("#stamp-button").click(function(){
         name = "Anonymous";
     }
 
-    var newStamp = { date: new Date(), 
+    var newStamp = { date: new Date().getTime(), 
                     location: locationAPI.add(), 
                     latitude: locationAPI.lat(), 
                     longitude: locationAPI.lon(), 
