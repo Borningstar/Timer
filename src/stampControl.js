@@ -6,6 +6,8 @@ var stampControl = (function () {
 	var stamps;
 	var stampTimer = setInterval(function () {timer(new Date(stamps[4].date), "timer")}, 1000);
 
+	addPoints();
+
 	var setStamps = function (newStamps){
 		stamps = newStamps;
 	};
@@ -35,6 +37,39 @@ var stampControl = (function () {
 		ping: pingMap
 	};
 }());
+
+function addPoints(){
+
+	var img = document.getElementById('map-image');
+	var canvas = $('<canvas/>')[0];
+	canvas.width = img.width;
+	canvas.height = img.height;
+	canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
+
+	var interval = 2;
+
+	var dotNum = 0;
+
+	for (var y = 0; y < 100; y += interval){
+
+		for (var x = 0; x < 100; x += interval / 2){
+
+			var xCoord = img.width * (x / 100);
+			var yCoord = img.height * (y / 100);
+
+			var pixelData = canvas.getContext('2d').getImageData(xCoord, yCoord, 1, 1).data;
+
+			if (pixelData[0] < 5 && pixelData[1] < 5 && pixelData[2] < 5){
+				dotNum++;
+				var point = "<div style='top: " + (y - interval) + "%; left: " + x + "%;' class='point' id='dot" + dotNum + "';></div>";
+				$("#pings").append(point);
+			}
+		}
+	}
+
+	console.log(dotNum);
+
+}
 
 var pingControl = (function () {
 
